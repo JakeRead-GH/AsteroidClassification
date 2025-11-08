@@ -2,9 +2,67 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.model_selection import RandomizedSearchCV
 import os
 
+def get_model(loss='log_loss', learning_rate=0.1, max_iter=100, max_depth=3, random_state=42):
+    """
+    Initialize and return a HistGradientBoostingClassifier with specified hyperparameters.
+
+    Relevant Loss options:
+    - 'log_loss': Logistic loss for classification.
+    - 'auto': Automatically selects the loss function based on the data.
+    - 'binary_crossentropy': Binary cross-entropy loss for binary classification.
+    """
+
+    return HistGradientBoostingClassifier(
+        loss=loss,
+        learning_rate=learning_rate,
+        max_iter=max_iter,
+        max_depth=max_depth,
+        random_state=random_state
+    )
+
+
+def hyperparameter_tuning(X_train, y_train):
+    """
+    Perform hyperparameter tuning using RandomizedSearchCV to find the best parameters
+    for the HistGradientBoostingClassifier. Returns the best parameters found.
+    Randomized search is superior to grid search in all aspects, including speed and performance.
+
+    Tuned Hyperparameters:
+    - learning_rate: Controls the contribution of each tree to the final model.
+    - max_depth: Maximum depth of the individual trees.
+    - max_iter: Number of boosting iterations (trees).
+    """
+
+    param_dist = {
+        'learning_rate': [0.01, 0.05, 0.1, 0.2],
+        'max_depth': [3, 5, 7, 9],
+        'max_iter': [50, 100, 150, 200]
+    }
+
+    model = get_model()
+
+    random_search = RandomizedSearchCV(
+        model,
+        param_distributions=param_dist,
+        n_iter=10,
+        scoring='f1',
+        cv=3,
+        random_state=42,
+        n_jobs=-1
+    )
+
+    random_search.fit(X_train, y_train)
+
+    return random_search.best_params_
+
+
 def run_main_model():
+    """
+    Takes in
+    """
     raw_file = 'data/raw/dataset.csv'
     preprocessed_file = 'data/preprocessed/asteroid_clean.csv'
 

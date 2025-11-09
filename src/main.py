@@ -1,9 +1,13 @@
 import sys,os
 import argparse
 import kagglehub
+import pandas as pd
+from preprocessing.feature_engineering import feature_engineering
 from models.baseline import run_baseline
 from models.main_model import MainModel
 from evaluation.eval import run_evaluation
+from preprocessing.data_preprocessing import preprocess_data
+
 
 
 """
@@ -44,6 +48,16 @@ def get_args():
         default='trained_model.joblib',
         help='Path to load the model from.'
     )
+    parser.add_argument(
+        '--feature_set',
+        type=str,
+        default='all',
+        help=(
+            "Which feature set to use for training. Options: "
+            "'all', 'physical', 'orbital_core', 'orbital_derived', 'motion_timing', 'uncertainties', 'model_fit', "
+            "or a combination separated by commas (e.g., 'physical,orbital_core')."
+        )
+    )
 
     return parser.parse_args()
 
@@ -61,11 +75,72 @@ def download_dataset():
         print("Raw dataset already exists.")
     return raw_path
 
+def check_preprocessed():
+    """Check if preprocessed dataset exists; if not, run preprocessing."""
+    preprocessed_path = "data/preprocessed/asteroid_clean.csv"
+    raw_path = "data/raw/dataset.csv"
+
+    if not os.path.exists(preprocessed_path):
+        print("Preprocessed dataset not found. Running preprocessing...")
+
+        # Ensure folder exists
+        os.makedirs(os.path.dirname(preprocessed_path), exist_ok=True)
+
+        # Call your preprocessing function (which should save the file)
+        preprocess_data(raw_path, preprocessed_path)
+
+        print(f"Preprocessed data saved to {preprocessed_path}")
+    else:
+        print("Preprocessed dataset already exists.")
+
+    return preprocessed_path
+
 if __name__ == "__main__":
     
+    args = get_args()
 
-
+    # Ensure dataset exists
     download_dataset()
+    preprocessed_csv = check_preprocessed()
+
+    
+    # After downloading and preprocessing
+    df = pd.read_csv(preprocessed_csv)
+
+    # Initialize feature engineer
+    engineer = feature_engineering(target_col='pha')
+
+    # Call select_features passing args.feature_set
+    X_train, y_train, X_test, y_test = engineer.select_features(df, feature_set=args.feature_set)
+
+    print("Data ready!")
+    print(f"Training samples: {X_train.shape[0]}, Test samples: {X_test.shape[0]}, Features: {X_train.shape[1]}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     #JAKE

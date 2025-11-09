@@ -103,7 +103,7 @@ if __name__ == "__main__":
     download_dataset()
     preprocessed_csv = check_preprocessed()
 
-    
+
     # After downloading and preprocessing
     df = pd.read_csv(preprocessed_csv)
 
@@ -116,7 +116,11 @@ if __name__ == "__main__":
     print("Data ready!")
     print(f"Training samples: {X_train.shape[0]}, Test samples: {X_test.shape[0]}, Features: {X_train.shape[1]}")
 
-
+    # Print all feature names for inspection
+    print("Selected feature names:")
+    print(list(X_train.columns))
+    print("Selected target col:")
+    print(y_train.name)
 
 
 

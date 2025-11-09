@@ -17,7 +17,7 @@ def preprocess_data(raw_path="data/raw/dataset.csv", save_path="data/preprocesse
 
     # Drop identifier/metadata columns
     drop_cols = ['id', 'spkid', 'full_name', 'pdes', 'name', 'prefix', 
-                 'orbit_id', 'epoch_cal' , 'epoch' ,'epoch_mjd', 'equinox', 'tp_cal' 'class']
+                 'orbit_id', 'epoch_cal' , 'epoch' ,'epoch_mjd', 'equinox', 'tp_cal', 'class']
     df = df.drop(columns=[c for c in drop_cols if c in df.columns])
 
     # Convert binary categorical columns to 0/1

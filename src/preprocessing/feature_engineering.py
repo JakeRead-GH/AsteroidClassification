@@ -33,17 +33,7 @@ class feature_engineering:
 
         # Target
         y = df[self.target_col]
-
-        # Keep only numeric features
-        X = X.select_dtypes(include='number')
-        X = X.fillna(X.mean())
-        y = pd.to_numeric(y, errors='coerce')
-
-        # Drop rows with NaN target
-        mask = ~y.isna()
-        X = X[mask]
-        y = y[mask]
-
+        
         # Simple train/test split for testing (no stratify)
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=test_size, random_state=random_state

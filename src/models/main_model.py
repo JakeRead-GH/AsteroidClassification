@@ -145,12 +145,13 @@ class MainModel:
     def get_model(self, load_path='trained_model.joblib'):
         """
         Load a model from the specified path if provided, otherwise create a new model.
-        Returns the model.
+        Returns the model and a boolean indicating whether it was loaded from a file.
         """
 
         if load_path and os.path.exists(load_path):
             model = joblib.load(load_path)
             print(f"Model loaded from {load_path}")
+            return model, True
         else:
             model = self.generate_new_model(use_best_params=True)
 
@@ -159,7 +160,7 @@ class MainModel:
             else:
                 print(f"Model file not found at {load_path}. New model created using best known hyperparameters.")
 
-        return model
+            return model, False
 
 
     def predict(self, model, X_test):

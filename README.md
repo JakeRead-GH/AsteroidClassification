@@ -21,3 +21,9 @@ a system that cleans and preprocesses the asteroid dataset, selects and engineer
 trains a model using machine learning to classify asteroids as potentially hazardous or not. We will
 handle class imbalance using techniques like oversampling( e.g., SMOTE)), or weighted loss, and then
 evaluate the model.
+
+
+# HOW TO RUN
+
+1. `cd src`
+2. `python3 main.py`

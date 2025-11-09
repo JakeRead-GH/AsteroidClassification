@@ -1,8 +1,10 @@
-import sys
+import sys,os
 import argparse
+import kagglehub
 from models.baseline import run_baseline
 from models.main_model import MainModel
 from evaluation.eval import run_evaluation
+
 
 """
 Main execution script for training, tuning, and evaluating models.
@@ -21,19 +23,23 @@ def get_args():
     parser = argparse.ArgumentParser(
         description="Train, tune, and evaluate the asteroid classification model."
     )
+
+    # Optional flag: hyperparameter tuning
     parser.add_argument(
-        '-h', '--hyperparameter_tune',
+        '--hyperparameter_tune',  # no short '-h', to avoid clash with help
         action='store_true',
         help='Perform hyperparameter tuning before training the model.'
     )
+
+    # Optional: paths for saving/loading model
     parser.add_argument(
-        '-ms', '--model_save_path',
+        '--model_save_path',
         type=str,
         default='trained_model.joblib',
         help='Path to save the trained model.'
     )
     parser.add_argument(
-        '-mp', '--model_load_path',
+        '--model_load_path',
         type=str,
         default='trained_model.joblib',
         help='Path to load the model from.'
@@ -41,10 +47,30 @@ def get_args():
 
     return parser.parse_args()
 
+def download_dataset():
+    """Download dataset from Kaggle if not already in data/raw."""
+    raw_path = "data/raw/dataset.csv"
+    if not os.path.exists(raw_path):
+        print("Downloading dataset from Kaggle...")
+        dataset_dir = kagglehub.dataset_download("sakhawat18/asteroid-dataset")
+        source_path = os.path.join(dataset_dir, "dataset.csv")
+        os.makedirs("data/raw", exist_ok=True)
+        os.system(f"cp '{source_path}' '{raw_path}'")
+        print(f"Dataset saved to {raw_path}")
+    else:
+        print("Raw dataset already exists.")
+    return raw_path
 
 if __name__ == "__main__":
-    args = get_args()
+    
 
+
+    download_dataset()
+
+
+    #JAKE
+    '''
+    args = get_args()
     # Preprocess (returns X_train, y_train, X_test, y_test)
     # TODO : implement data loading and preprocessing
     X_train = None
@@ -70,4 +96,4 @@ if __name__ == "__main__":
     y_pred = mm.predict(model, X_test)
 
     # Evaluate results (takes in y_test, y_pred)
-    run_evaluation(y_test, y_pred)
+    run_evaluation(y_test, y_pred)'''

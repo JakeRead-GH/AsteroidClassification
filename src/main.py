@@ -3,10 +3,11 @@ import argparse
 import kagglehub
 import pandas as pd
 from preprocessing.feature_engineering import feature_engineering
-from models.baseline import run_baseline
+from models.baseline import BaselineModel
 from models.main_model import MainModel
 from evaluation.eval import run_evaluation
 from preprocessing.data_preprocessing import preprocess_data
+from preprocessing.data_preprocessing import normalize_data
 
 
 
@@ -122,57 +123,58 @@ if __name__ == "__main__":
     print("Selected target col:")
     print(y_train.name)
 
+    X_train_norm, X_test_norm,  =  normalize_data(X_train, X_test)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #JAKE
-    '''
-    args = get_args()
-    # Preprocess (returns X_train, y_train, X_test, y_test)
-    # TODO : implement data loading and preprocessing
-    X_train = None
-    y_train = None
-    X_test = None
-    y_test = None
-
-    # Train models and save outputs (takes in X_train, y_train)
-    mm = MainModel()
+    #models
+    baseline = BaselineModel()
+    baseline.fit(y_train)
+    '''mm = MainModel()
 
     # Hyperparameter tuning if asked for in args
     if args.hyperparameter_tune:
-        mm.hyperparameter_tuning(X_train, y_train)
+        mm.hyperparameter_tuning(X_train_norm, y_train)
 
     # Get model (load from file if exists, else create new)
     model, is_loaded = mm.get_model(load_path=args.model_load_path)
 
     # Trains the model (if not loaded from file) and saves it
     if not is_loaded:
-        model = mm.train(model, X_train, y_train, save_path=args.model_save_path)
+        model = mm.train(model, X_train_norm, y_train, save_path=args.model_save_path)
 
     # Run models (run on X_test, returns y_pred)
-    y_pred = mm.predict(model, X_test)
+    y_pred_main_model = mm.predict(model, X_test_norm)
 
     # Evaluate results (takes in y_test, y_pred)
-    run_evaluation(y_test, y_pred)'''
+    run_evaluation(y_test, y_pred_main_model)
+
+
+    # Predict
+    y_baseline_pred = baseline.predict(X_test_norm)
+    run_evaluation(y_baseline_pred , y_pred_main_model)'''
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   

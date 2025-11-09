@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 def preprocess_data(raw_path="data/raw/dataset.csv", save_path="data/preprocessed/asteroid_clean.csv"):
     """
@@ -37,3 +38,14 @@ def preprocess_data(raw_path="data/raw/dataset.csv", save_path="data/preprocesse
     df.to_csv(save_path, index=False)
     print(f"Preprocessing finished. Dataset cleaned and saved to {save_path}")
     return save_path
+
+def normalize_data(X_train, X_test):
+    """
+    Normalizes features using z-score normalization based on training data that already has been selected.
+    """
+
+    scaler = StandardScaler()
+    X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train), columns=X_train.columns)
+    X_test_scaled = pd.DataFrame(scaler.transform(X_test), columns=X_test.columns)
+
+    return X_train_scaled, X_test_scaled,

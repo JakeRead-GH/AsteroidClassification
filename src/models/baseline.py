@@ -1,13 +1,16 @@
+import numpy as np
 import pandas as pd
-from sklearn.dummy import DummyClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix
-import os
 
-def run_baseline():
-    print("=== Running Baseline Model ===")
+class BaselineModel:
+    """Predicts the majority class from the training set."""
+    def __init__(self):
+        self.majority_class = None
 
-   
+    def fit(self, y_train):
+        self.majority_class = y_train.value_counts().idxmax()
+        print(f"Majority class determined: {self.majority_class}")
 
-if __name__ == "__main__":
-    run_baseline()
+    def predict(self, X_test):
+        if self.majority_class is None:
+            raise ValueError("Fit the model before predicting.")
+        return pd.Series([self.majority_class] * len(X_test), index=X_test.index)

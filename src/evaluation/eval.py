@@ -40,7 +40,7 @@ def run_evaluation(y_test, y_pred, model_name="Model", cmap="Blues", save_plots=
         plt.savefig(filename)
         print(f"Confusion matrix saved to {filename}")
 
-    plt.show()
+    plt.close()
 
     # Return metrics for comparison
     return {
@@ -85,4 +85,4 @@ def compare_models(results_baseline, results_main, save_plot=True):
         plt.savefig(filename)
         print(f"Comparison chart saved to {filename}")
 
-    plt.show()
+    plt.close()

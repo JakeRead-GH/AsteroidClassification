@@ -5,6 +5,7 @@
 \usepackage[]{acl}
 \usepackage{times}
 \usepackage{latexsym}
+\usepackage{comment}
 
 % For proper rendering and hyphenation of words containing Latin characters (including in bib files)
 \usepackage[T1]{fontenc}
@@ -79,9 +80,9 @@
 
 \noindent There are tens of thousands of Near Earth Asteroids (NEAs) on orbit paths close to Earth, with more being discovered daily \citep{NASANEAs}. Some of these become classified as Potentially Hazardous Asteroids (PHAs), as they become large enough to potentially cause a problem. As more and more NEAs are discovered every day, it would be helpful to develop a machine learning classification system that would be able to classify NEAs to determine which could be hazardous. Classification of asteroids requires time-consuming analysis of a variety of features. An autonomous model would allow space agencies to dedicate more resources to observation of the detected PHAs and developing mitigation strategies. \newline
 
-Accurate and expedient classification of asteroids is crucial to determining potential risks to planetary health. This project will develop a model to classify NEAs based on physical and orbital characteristics to determine which could be hazardous to Earth. This project will clean and pre-process the dataset, selects relevant features, and trains a model using machine learning to classify asteroids as hazardous or non-hazardous. We will handle class imbalance using techniques like oversampling( e.g., SMOTE)), or weighted loss, and then evaluate the model. \newline
+\noindent Accurate and expedient classification of asteroids is crucial to determining potential risks to planetary health. This project will develop a model to classify NEAs based on physical and orbital characteristics to determine which could be hazardous to Earth. This project will clean and pre-process the dataset, selects relevant features, and trains a model using machine learning to classify asteroids as hazardous or non-hazardous. We will handle class imbalance using techniques like oversampling( e.g., SMOTE)), or weighted loss, and then evaluate the model. \newline
 
-The dataset we will use contains an existing classification for, as well as features of thousands of discovered asteroids. The dataset is derived from NASA and JPL's Small-body and Asteroid database. The dataset contains 45 features of any known object, and we will engineer a feature set that yields the best results, clean the data and handle imbalance. \newline
+\noindent The dataset we will use contains an existing classification for, as well as features of thousands of discovered asteroids. The dataset is derived from NASA and JPL's Small-body and Asteroid database. The dataset contains 45 features of any known object, and we will engineer a feature set that yields the best results, clean the data and handle imbalance. \newline
 
 \section{Related Work}
 
@@ -99,9 +100,22 @@ The dataset we will use contains an existing classification for, as well as feat
 
 \section{Dataset}
 
-You should write about your dataset here, following the guidelines regarding item 1. This section may be 0.5-1 pages. Depending on your specific dataset, you may want to include subsections for the preprocessing, annotation, etc.
+\textit{You should write about your dataset here, following the guidelines regarding item 1. This section may be 0.5-1 pages. Depending on your specific dataset, you may want to include subsections for the preprocessing, annotation, etc.} \newline
+
+\noindent We are using a public dataset available on Kaggle, licensed under Open Data Commons Open Database License, by user sakhawak18. The database is called \textit{Asteroid Dataset}, found \href{https://www.kaggle.com/datasets/sakhawat18/asteroid-dataset}{here} \cite{10.1007/978-981-19-7528-8_4}. As stated in the summary, it is officially maintained and updated weekly, and has a Kaggle-calculated usability score of 10.00. The original source of the data is NASA's Jet Propulsion Laboratory Small-Body and Asteroid databases, containing both orbital and physical properties for hundreds of thousands of known asteroids \citep{database}. \newline
+
+\noindent The dataset contains orbital and physical properties of thousands of discovered and analyzed asteroids. There is a target label \texttt{pha} present, representing the classification to be predicted by the model. The features that will be used in the model are enumerated in in \hyperref[sec:Features]{Features}. The dataset also contains identifier, metadata, epoch and reference data features that will not be used in our model. The excluded features are: 
+
+\begin{itemize}
+    \item \textbf{Identifiers and Metadata:} \texttt{id}, \texttt{spkid}, \texttt{full\_name}, \texttt{pdes}, \texttt{name}, \texttt{prefix}, \texttt{orbit\_id}, \texttt{class}
+
+    \item \textbf{Epoch and Reference Data:} \texttt{epoch}, \texttt{epoch\_mjd} (Modified Julian Date), \texttt{epoch\_cal} (calendar format), \texttt{equinox}, \texttt{tp\_cal} (perihelion passage in calendar format) \newline 
+\end{itemize}
+
+\noindent We will import the dataset using the Kaggle API, complying with its terms of service. Once the dataset is imported it will then be preprocessed, which includes a number of steps. The dataset contains some non-numeric columns in the identifiers and metadata (including but not limited to \texttt{id}, \texttt{name}, and \texttt{class}) that will be dropped as they cannot contribute to prediction. Some categorical categories, including the \texttt{pha} flag, will be converted to numerical binary values and processed as such. Any string values remaining in the dataset will be forced to \texttt{NaN} to ensure that no unpredicted errors occur in processing. The resulting missing values and their object will then be handled or dropped. \newline
 
 \section{Features}
+\label{sec:Features}
 
 Describe any features you used for your model, or how your data was input to your model. Are you doing feature engineering or feature selection? Are you learning embeddings? Is it all part of one neural network? Refer to item 2. This may range from 0.25 pages to 0.5 pages.
 
@@ -117,6 +131,7 @@ How are you evaluating your model? What results do you have so far? What are you
 
 Write about your plans for the remainder of the project. This should include a discussion of the feedback you received from your TA, and how you plan to improve your approach. Reflect on your implementation and areas for improvement. Refer to item 6. This may be around 0.5 pages.
 
+\begin{comment}
 \section{Template Notes}
 
 You can remove this section or comment it out, as it only contains instructions for how to use this template. You may use subsections in your document as you find appropriate.
@@ -141,7 +156,6 @@ See Figure~\ref{fig:experiments} for an example of a figure and its caption.
   \caption {A minimal working example to demonstrate how to place
     two images side-by-side.}
 \end{figure*}
-
 
 \subsection{Citations}
 
@@ -188,12 +202,16 @@ are all defined with the \verb|\label{label}| command and cross references
 to them are made with the \verb|\ref{label}| command.
 This an example cross-reference to Equation~\ref{eq:example}. You can also write equations inline, like this: $A=\pi r^2$.
 
-
+\end{comment}
 % \section*{Limitations}
 
 \section*{Team Contributions}
 
-Write in this section a few sentences describing the contributions of each team member. What did each member work on? Refer to item 7.
+\textit{Write in this section a few sentences describing the contributions of each team member. What did each member work on? Refer to item 7.} \newline
+
+\noindent \textbf{Claire Nielsen} handled the research into related works and strategies, and wrote the Progress Report. \newline
+
+\noindent \textbf{Rebecca Di Filippo} and \textbf{Jake Read} handled the coding of the model up to this point in the project. Rebecca handled the preprocessing of the dataset, feature engineering and selection, and baseline model for comparison. Jake wrote the starting gradient boosting algorithm, loss function, and optimization technique. Rebecca and Jake collaborated on the evaluation strategies for the model (including the training/testing split, cross-validation, and metrics). 
 
 % Bibliography entries for the entire Anthology, followed by custom entries
 %\bibliography{custom,anthology-overleaf-1,anthology-overleaf-2}

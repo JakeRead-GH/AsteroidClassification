@@ -24,11 +24,11 @@
 %
 % and set <dim> to something 5cm or larger.
 
-\title{Group X Progress Report:\\My Group's Project Name}
+\title{Group 65 Progress Report:\\Asteroid Classification using Machine Learning}
 
 
-\author{First Author, Second Author, Third Author \\
-  \texttt{\{macid1,macid2,macid3\}@mcmaster.ca} }
+\author{Claire Nielsen, Jake Read, Rebecca Di Filippo \\
+  \texttt{\{nielsc2, readj9, diflilr\}@mcmaster.ca} }
 
 %\author{
 %  \textbf{First Author\textsuperscript{1}},
@@ -75,11 +75,27 @@
 
 \section{Introduction}
 
-Here, write a brief introduction to the problem you are solving. This can be adapted from your problem description and motivation from the original proposal. This should be around 0.25-0.5 pages.
+\textit{Here, write a brief introduction to the problem you are solving. This can be adapted from your problem description and motivation from the original proposal. This should be around 0.25-0.5 pages. }\newline
+
+\noindent There are tens of thousands of Near Earth Asteroids (NEAs) on orbit paths close to Earth, with more being discovered daily \citep{NASANEAs}. Some of these become classified as Potentially Hazardous Asteroids (PHAs), as they become large enough to potentially cause a problem. As more and more NEAs are discovered every day, it would be helpful to develop a machine learning classification system that would be able to classify NEAs to determine which could be hazardous. Classification of asteroids requires time-consuming analysis of a variety of features. An autonomous model would allow space agencies to dedicate more resources to observation of the detected PHAs and developing mitigation strategies. \newline
+
+Accurate and expedient classification of asteroids is crucial to determining potential risks to planetary health. This project will develop a model to classify NEAs based on physical and orbital characteristics to determine which could be hazardous to Earth. This project will clean and pre-process the dataset, selects relevant features, and trains a model using machine learning to classify asteroids as hazardous or non-hazardous. We will handle class imbalance using techniques like oversampling( e.g., SMOTE)), or weighted loss, and then evaluate the model. \newline
+
+The dataset we will use contains an existing classification for, as well as features of thousands of discovered asteroids. The dataset is derived from NASA and JPL's Small-body and Asteroid database. The dataset contains 45 features of any known object, and we will engineer a feature set that yields the best results, clean the data and handle imbalance. \newline
 
 \section{Related Work}
 
-Here, talk about the related work you encountered for your approach. Cite at least 5 references. Refer to item 2. No one has done exactly your task? Write about the most similar thing you can find. This should be around 0.25-0.5 pages.
+\textit{Here, talk about the related work you encountered for your approach. Cite at least 5 references. Refer to item 2. No one has done exactly your task? Write about the most similar thing you can find. This should be around 0.25-0.5 pages.} \newline 
+
+\noindent \citet{NASANEOs} defines Potentially Hazardous Asteroids (PHAs) based on parameters that affect the asteroid's potential to be threatening, including its closest distance to Earth, size and albedo. There have been several systems developed using various machine learning models. \newline
+
+\noindent Results of a comparison of machine learning models to classify NEAs were published in 2022, and included comparison of logistic regression, naive Bayes, support vector machines (SVMs), gradient boosting, and MultiLayer Perceptrons (MLPs). The article states that \textit{multilayer perception} and \textit{gradient boosting} yielded the most accurate results \citep{CompareML}. \newline
+
+\noindent A further indicator of the performance of gradient boosting came from a classification project using the NGBoost classifier, a gradient boosting framework that uses natural gradient descent for optimization. Using NGBoost produced an overall accuracy of 99.22\% \citep{NGBoost}. \newline
+
+\noindent Another article published in 2019 compares the Hierarchal Clustering Method (HCM) to a newer, \textit{supervised learning HCM} method. The supervised HCM method proved superior to the classical method, correctly identifying all asteroids within the target family and and yielding an accuracy of about 85\% \citep{HCM}. \newline
+
+\noindent A different approach was taken by \citet{SVM}, who elected to observe subgroups of NEAs with high concentrations of PHAs, to better determine which characteristics can be used as flags of hazardous asteroids. Using a \textit{Support Vector Machine (SVM)} model, the extracted subgroups of NEAs contained about 90\% of the real and virtual PHAs. \newline 
 
 \section{Dataset}
 

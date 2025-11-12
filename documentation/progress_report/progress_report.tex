@@ -169,7 +169,7 @@ The dataset also contains identifier, metadata, epoch and reference data feature
   \label{fig:bar_graph}
 \end{figure}
 
-\noindent In this graph, we can see that the Baseline Model has incredibly high accuracy, and almost zero precision, recall, and F1 score. Since the baseline classifies all samples as non-hazardous, it results in a high accuracy score since most samples are correctly classified. However, since it incorrectly classifies all hazardous asteroids, every other score is zero. However, we can also see that our Main Model performs quite well. In the trial that produced this graph, the Main Model had: \newline \newline
+\noindent In this graph, we can see that the Baseline Model has incredibly high accuracy, and almost zero precision, recall, and F1 score. Since the baseline classifies all samples as non-hazardous, it results in a high accuracy score since most samples are correctly classified. However, since it incorrectly classifies all hazardous asteroids, every other score is zero. However, we can also see that our Main Model performs quite well. In the trial that produced this graph, the Main Model had: \newline
 
 \begin{table}[h]
   \centering
@@ -232,7 +232,13 @@ The dataset also contains identifier, metadata, epoch and reference data feature
 \listoffigures
 \listoftables 
 
-\medskip \noindent As the project progresses, we will work on refining our model by running with different feature sets to see which have the greatest impact on its performance. We will also work with different techniques to handle the class imbalance due to the much smaller number of hazardous asteroids in our dataset. \newline
+\medskip \noindent As the project progresses, the group has several plans of improvements to make. 
+\begin{itemize}
+    \item We will work on refining our model by running with different feature sets to see which have the greatest impact on its performance. We have the ability to pass different sets through the command line, but have not extensively tested the results. 
+    \item We will experiment with more rigorous hyperparameter tuning, perhaps a few thousand trials over a few hours rather than the 10 we are using now. 
+    \item We will consider a focus on recall instead of F1 score. By focusing on recall we are minimizing the number of hazardous asteroids that the model misclassifies by penalizing more harshly for missed positives than false negatives. 
+    \item We will work with different techniques to handle the class imbalance due to the much smaller number of hazardous asteroids in our dataset
+\end{itemize}
 
 \begin{comment}
 \section{Template Notes}

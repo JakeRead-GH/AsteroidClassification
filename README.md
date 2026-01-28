@@ -51,6 +51,7 @@ We were able to classify the posed hazard of asteroids with the following result
 - Recall: 100%
 - Precision: 93.44%
 - F1 Score: 96.61%
+
 These were excellent results. To our knowledge, this outperforms all previously published baselines on this Kaggle dataset as of the time of writing.
 The confusion matrix for our final model can be seen below:
 

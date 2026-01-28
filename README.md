@@ -46,9 +46,12 @@ Finally, we used a stratified train-test split, which ensured there's a similar 
 
 
 # Results
-We were able to classify the posed hazard of asteroids with an accuracy of 99.98%.
-(100% Recall, 93.44% Precision, 96.61% F1 Score).
-These were excellent results, beating all previous public attampts we're aware of at the time of writing.
+We were able to classify the posed hazard of asteroids with the following results:
+- Accuracy: 99.98%.
+- Recall: 100%
+- Precision: 93.44%
+- F1 Score: 96.61%
+These were excellent results. To our knowledge, this outperforms all previously published baselines on this Kaggle dataset as of the time of writing.
 The confusion matrix for our final model can be seen below:
 
 <img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/4103a7a8-b2aa-4f96-9a4f-b7fcd1a59cbe" />
@@ -56,9 +59,17 @@ The confusion matrix for our final model can be seen below:
 For more details, check the link to the full report above.
 
 
-
-
-# HOW TO RUN
+# How To Run
 
 1. `cd src`
 2. `python3 main.py`
+
+# Notes
+
+Dataset is downloaded via kagglehub on first run.
+
+If you reproduce results, ensure you use the same split strategy and random seeds described in the report.
+
+# Authors
+
+Jake Read, Rebecca Di Filippo, Claire Nielsen
